@@ -1,6 +1,7 @@
 <template>
     <div class="container">
       <Header title="Task Tracker"></Header>
+      <Tasks :tasks="tasks"/>
     </div>
   
 </template>
@@ -8,10 +9,41 @@
 <script>
 
 import Header from './components/Header'
+import Tasks from './components/Tasks.vue'
+
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    Tasks,
+  },
+  data () {
+    return {
+      tasks: []
+    }
+  },
+  // SampleData Here Will come from a Backend Eventaully
+  created() {
+    this.tasks = [
+      {
+        id: 1,
+        text:"Write Code",
+        day: "March 1st at 2:30pm",
+        reminder: true,
+      },
+      {
+        id: 2,
+        text:"Read Django Docs",
+        day: "March 1st at 4:30pm",
+        reminder: true,
+      },
+      {
+        id: 3,
+        text:"Send Work Application",
+        day: "March 1st at 5:30pm",
+        reminder: false,
+      }
+    ]
   }
 }
 </script>
