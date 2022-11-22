@@ -1,7 +1,9 @@
 <template>
     <div class="container">
       <Header title="Task Tracker"></Header>
-      <Tasks :tasks="tasks"/>
+      <Tasks 
+        @toggle-reminder="toggleReminder"
+        @delete-task="deleteTask" :tasks="tasks"/>
     </div>
   
 </template>
@@ -22,6 +24,20 @@ export default {
       tasks: []
     }
   },
+  methods: {
+    deleteTask(id) {
+      if(confirm('Are you sure you want to delete this task?')){
+        // Loop through the object and remove those with id different from
+        // those provided from click
+        this.tasks = this.tasks.filter((task) => task.id !== id)
+      }
+    },
+    toggleReminder(id) {
+      // Using `map` to loop through the array of objects until one with id is found
+      //When found get the value of the reminder key and set to the opposite boolean
+      this.tasks = this.tasks.map( (task) => task.id === id ? {...task, reminder: !task.reminder}: task)
+    }
+  },
   // SampleData Here Will come from a Backend Eventaully
   created() {
     this.tasks = [
@@ -39,9 +55,22 @@ export default {
       },
       {
         id: 3,
-        text:"Send Work Application",
+        text:"Study Vue",
         day: "March 1st at 5:30pm",
+        reminder: true,
+      },
+      {
+        id: 4,
+        text:"Play FIFA",
+        day: "September 2nd at 5:30pm",
         reminder: false,
+      }
+      ,
+      {
+        id: 5,
+        text:"Read a book",
+        day: "October 4th at 5:30pm",
+        reminder: true,
       }
     ]
   }
