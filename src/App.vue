@@ -32,7 +32,7 @@ export default {
   data () {
     return {
       tasks: [],
-      showAddTask: true,
+      showAddTask: false,
     }
   },
   methods: {
