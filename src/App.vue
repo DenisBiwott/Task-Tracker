@@ -40,58 +40,70 @@ export default {
       this.showAddTask = !this.showAddTask
     },
 
-    addTask(task) {
-      this.tasks = [...this.tasks, task]
+    async addTask(task) {
+
+      const res = await fetch('api/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(task)
+      })
+
+      const data = await res.json()
+
+      this.tasks = [...this.tasks, data]
     },
 
-    deleteTask(id) {
+    async deleteTask(id) {
       if(confirm('Are you sure you want to delete this task?')){
         // Loop through the object and remove those with id different from
         // those provided from click
-        this.tasks = this.tasks.filter((task) => task.id !== id)
+
+        const res = await fetch(`api/tasks/${id}`, {
+          method: 'DELETE',
+        })
+
+        res.status === 200 ? (
+          this.tasks = this.tasks.filter((task) => task.id !== id)) : alert('Error Deleting Task')
+        
       }
     },
-    toggleReminder(id) {
+    async toggleReminder(id) {
       // Using `map` to loop through the array of objects until one with id is found
       //When found get the value of the reminder key and set to the opposite boolean
-      this.tasks = this.tasks.map( (task) => task.id === id ? {...task, reminder: !task.reminder}: task)
+
+      const taskToToggle = await this.fetchTask(id)
+      
+      const updTask = {...taskToToggle, reminder: !taskToToggle.reminder}
+
+      const res = await fetch(`api/tasks/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(updTask)
+      })
+      const data = res.json()
+
+      this.tasks = this.tasks.map( (task) => task.id === id ? {...task, reminder: data.reminder }: task)
+    },
+    async fetchTasks () {
+      const res = await fetch('api/tasks')
+      const data = await res.json()
+      return data
+    },
+    async fetchTask (id) {
+      const res = await fetch(`api/tasks/${id}`)
+      const data = await res.json()
+      return data
     }
   },
-  // SampleData Here Will come from a Backend Eventaully
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text:"Write Code",
-        day: "March 1st at 2:30pm",
-        reminder: true,
-      },
-      {
-        id: 2,
-        text:"Read Django Docs",
-        day: "March 1st at 4:30pm",
-        reminder: true,
-      },
-      {
-        id: 3,
-        text:"Study Vue",
-        day: "March 1st at 5:30pm",
-        reminder: true,
-      },
-      {
-        id: 4,
-        text:"Play FIFA",
-        day: "September 2nd at 5:30pm",
-        reminder: false,
-      }
-      ,
-      {
-        id: 5,
-        text:"Read a book",
-        day: "October 4th at 5:30pm",
-        reminder: true,
-       }
-    ]
+  // SampleData Here Will come from a Backend Eventaully (Currently using json-server 
+  // https://www.npmjs.com/package/json-server)
+  async created() {
+    this.tasks = await this.fetchTasks()
+    console.log(this.tasks)
   }
 }
 </script>
