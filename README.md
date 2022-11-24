@@ -2,7 +2,7 @@
 
 <a name="readme-top"></a>
 
-[![LinkedIn][linkedin-shield]][]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -19,7 +19,7 @@ for CRUD operations on the tasks.
 ### Built With
 
 
-* [![Vue][Vue.js]][Vue-url]
+[![Vue][Vue.js]][Vue-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -38,8 +38,8 @@ npm run serve
 npm run build
 ```
 
-### Run Json-server
-This project uses json-server for dummy backend data (At least at the time of writing). The dummy data
+### Running Json-server
+This project uses [json-server](https://www.npmjs.com/package/json-server) for dummy backend data (At least at the time of writing). The dummy data
 is stored in the `db.json` file found within the project.
 
 - To install it run:
@@ -62,7 +62,8 @@ If you have a suggestion that would make this better, please fork the repo and c
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@deniskip](https://twitter.com/deniskip) - email@example.com
+Twitter - [@deniskip](https://twitter.com/deniskip)
+Email - denisbiwott@gmail.com
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
