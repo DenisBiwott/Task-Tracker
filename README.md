@@ -13,6 +13,9 @@
 TASK TRACKER is a one-page application that takes in and stores the user's tasks, toggles reminders and allows
 for CRUD operations on the tasks.
 
+<img width="524" alt="Screenshot 2022-11-23 at 15 59 15" src="https://user-images.githubusercontent.com/52312209/203805882-b8043d79-4816-4a3c-a031-6e6fec2b657d.png">
+<img width="515" alt="Screenshot 2022-11-23 at 15 59 49" src="https://user-images.githubusercontent.com/52312209/203805921-a72e63f5-9a9c-4930-bd10-a68583ba4a53.png">
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
