@@ -4,7 +4,7 @@
       "id": 1,
       "text": "Write Code",
       "day": "March 1st at 2:30pm",
-      "reminder": true
+      "reminder": false
     },
     {
       "id": 2,
@@ -16,13 +16,13 @@
       "id": 3,
       "text": "Study Vue",
       "day": "March 1st at 5:30pm",
-      "reminder": false
+      "reminder": true
     },
     {
       "id": 4,
       "text": "Play FIFA",
       "day": "September 2nd at 5:30pm",
-      "reminder": true
+      "reminder": false
     },
     {
       "id": 5,
@@ -33,13 +33,7 @@
     {
       "text": "Take a Nap",
       "day": "November 23rd at 5:30pm",
-      "reminder": true,
-      "id": 6
-    },
-    {
-      "text": "Take a Nap",
-      "day": "November 23rd at 5:30pm",
-      "reminder": true,
+      "reminder": false,
       "id": 8
     }
   ]
