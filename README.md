@@ -10,7 +10,7 @@
 ## About The Project
 
 
-TASK TRACKER is a one-page application that takes in and stores the user's tasks, toggles reminders and allows
+TASK TRACKER is a vue application that takes in and stores the user's tasks, toggles reminders and allows
 for CRUD operations on the tasks.
 
 <img width="524" alt="Screenshot 2022-11-23 at 15 59 15" src="https://user-images.githubusercontent.com/52312209/203805882-b8043d79-4816-4a3c-a031-6e6fec2b657d.png">

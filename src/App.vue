@@ -5,13 +5,11 @@
         title="Task Tracker"
         :showAddTask="showAddTask"
       />
-      <div v-show="showAddTask">
-        <AddTask @add-task="addTask" /> 
-      </div>
 
-      <Tasks 
-        @toggle-reminder="toggleReminder"
-        @delete-task="deleteTask" :tasks="tasks"/>
+      <!-- Here we pass a prop to the router-view. This can be caught
+      any of our views. Here the Home view cathces the prop. -->
+      <router-view :showAddTask="showAddTask"></router-view>
+      <Footer v-show="showFooter"/>
     </div>
   
 </template>
@@ -19,19 +17,17 @@
 <script>
 
 import Header from './components/Header'
-import Tasks from './components/Tasks'
-import AddTask from './components/AddTask'
+import Footer from './components/Footer'
+
 
 export default {
   name: 'App',
   components: {
     Header,
-    Tasks,
-    AddTask,
+    Footer,
   },
   data () {
     return {
-      tasks: [],
       showAddTask: false,
     }
   },
@@ -39,71 +35,15 @@ export default {
     toggleAddTask() {
       this.showAddTask = !this.showAddTask
     },
-
-    async addTask(task) {
-
-      const res = await fetch('api/tasks', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(task)
-      })
-
-      const data = await res.json()
-
-      this.tasks = [...this.tasks, data]
-    },
-
-    async deleteTask(id) {
-      if(confirm('Are you sure you want to delete this task?')){
-        // Loop through the object and remove those with id different from
-        // those provided from click
-
-        const res = await fetch(`api/tasks/${id}`, {
-          method: 'DELETE',
-        })
-
-        res.status === 200 ? (
-          this.tasks = this.tasks.filter((task) => task.id !== id)) : alert('Error Deleting Task')
-        
-      }
-    },
-    async toggleReminder(id) {
-      // Using `map` to loop through the array of objects until one with id is found
-      //When found get the value of the reminder key and set to the opposite boolean
-
-      const taskToToggle = await this.fetchTask(id)
-      
-      const updTask = {...taskToToggle, reminder: !taskToToggle.reminder}
-
-      const res = await fetch(`api/tasks/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(updTask)
-      })
-      const data = res.json()
-
-      this.tasks = this.tasks.map( (task) => task.id === id ? {...task, reminder: data.reminder }: task)
-    },
-    async fetchTasks () {
-      const res = await fetch('api/tasks')
-      const data = await res.json()
-      return data
-    },
-    async fetchTask (id) {
-      const res = await fetch(`api/tasks/${id}`)
-      const data = await res.json()
-      return data
-    }
   },
-  // SampleData Here Will come from a Backend Eventaully (Currently using json-server 
-  // https://www.npmjs.com/package/json-server)
-  async created() {
-    this.tasks = await this.fetchTasks()
-    console.log(this.tasks)
+  computed: {
+    showFooter() {
+      if (this.$route.path === '/') {
+        return true
+      } else {
+        return false
+      }
+    }
   }
 }
 </script>
