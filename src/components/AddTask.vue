@@ -8,7 +8,7 @@
       <label>Day & Time</label>
       <input
         v-model="day"
-        type="text"
+        type="date"
         name="day"
         placeholder="Add Day & Time"
       />
