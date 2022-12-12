@@ -1,11 +1,10 @@
 <template>
-    <div v-show="showAddTask">
-        <AddTask @add-task="addTask" /> 
-      </div>
+      <AddTask v-show="showAddTask" @add-task="addTask" /> 
 
       <Tasks 
         @toggle-reminder="toggleReminder"
-        @delete-task="deleteTask" :tasks="tasks"/>
+        @delete-task="deleteTask"
+        :tasks="tasks"/>
 </template>
 
 <script>
@@ -51,7 +50,7 @@ export default{
                 })
 
                 res.status === 200 ? (
-                this.tasks = this.tasks.filter((task) => task.id !== id)) : alert('Error Deleting Task')
+                this.tasks = this.tasks.filter((task) => task._id !== id)) : alert('Error Deleting Task')
                 
         }
         },
@@ -72,14 +71,14 @@ export default{
             })
             const data = res.json()
 
-            this.tasks = this.tasks.map( (task) => task.id === id ? {...task, reminder: data.reminder }: task)
+            this.tasks = this.tasks.map( (task) => task._id === id ? {...task, reminder: data.reminder }: task)
         },
         async fetchTasks () {
             const res = await fetch('api/tasks')
             const data = await res.json()
             return data
             },
-            async fetchTask (id) {
+        async fetchTask (id) {
             const res = await fetch(`api/tasks/${id}`)
             const data = await res.json()
             return data
