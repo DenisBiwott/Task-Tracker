@@ -1,14 +1,15 @@
-const { defineConfig } = require('@vue/cli-service')
+const { defineConfig } = require('@vue/cli-service');
 module.exports = {
   transpileDependencies: true,
   devServer: {
     proxy: {
-       '^/api': {
-        'target': 'http://localhost:3000',
-        'changeOrigin': true,
-        'logLevel': 'debug',
-        'pathRewrite': {'^/api' : '/'},
-       }
-    }
-  }
-}
+      '^/api': {
+        // Target API backend hosted in cyclic
+        target: 'https://puce-kingfisher-tutu.cyclic.app/',
+        changeOrigin: true,
+        logLevel: 'debug',
+        pathRewrite: { '^/api': '/' },
+      },
+    },
+  },
+};
