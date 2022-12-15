@@ -9,6 +9,8 @@
 </template>
 
 <script>
+//TODO: Lookup how to use axios globally.
+import axios from 'axios';
 import Tasks from '../components/Tasks';
 import AddTask from '../components/AddTask';
 
@@ -28,15 +30,15 @@ export default {
   },
   methods: {
     async addTask(task) {
-      const res = await fetch('api/tasks', {
+      const res = await axios('api/tasks', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
         },
-        body: JSON.stringify(task),
+        data: JSON.stringify(task),
       });
 
-      const data = await res.json();
+      const data = await res.data;
 
       this.tasks = [...this.tasks, data];
     },
@@ -46,7 +48,7 @@ export default {
         // Loop through the object and remove those with id different from
         // those provided from click
 
-        const res = await fetch(`api/tasks/${id}`, {
+        const res = await axios.delete(`api/tasks/${id}`, {
           method: 'DELETE',
         });
 
@@ -63,27 +65,33 @@ export default {
 
       const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
 
-      const res = await fetch(`api/tasks/${id}`, {
+      const res = await axios(`api/tasks/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-type': 'application/json',
         },
-        body: JSON.stringify(updTask),
+        data: JSON.stringify(updTask),
       });
-      const data = res.json();
+      const data = res.data;
 
       this.tasks = this.tasks.map((task) =>
         task._id === id ? { ...task, reminder: data.reminder } : task
       );
     },
     async fetchTasks() {
-      const res = await fetch('api/tasks');
-      const data = await res.json();
+      const res = await axios({
+        method: 'GET',
+        url: `/api/tasks`,
+      });
+      const data = res.data;
       return data;
     },
     async fetchTask(id) {
-      const res = await fetch(`api/tasks/${id}`);
-      const data = await res.json();
+      const res = await axios({
+        method: 'GET',
+        url: `api/tasks/${id}`,
+      });
+      const data = res.data;
       return data;
     },
   },
