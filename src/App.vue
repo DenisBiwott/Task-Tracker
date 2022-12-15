@@ -1,24 +1,21 @@
 <template>
-    <div class="container">
-      <Header
-        @toggle-add-task="toggleAddTask"
-        title="Task Tracker"
-        :showAddTask="showAddTask"
-      />
+  <div class="container">
+    <Header
+      @toggle-add-task="toggleAddTask"
+      title="Task Tracker"
+      :showAddTask="showAddTask"
+    />
 
-      <!-- Here we pass a prop to the router-view. This can be caught
+    <!-- Here we pass a prop to the router-view. This can be caught
       any of our views. Here the Home view cathces the prop. -->
-      <router-view :showAddTask="showAddTask"></router-view>
-      <Footer v-show="showFooter"/>
-    </div>
-  
+    <router-view :showAddTask="showAddTask"></router-view>
+    <Footer v-show="showFooter" />
+  </div>
 </template>
 
 <script>
-
-import Header from './components/Header'
-import Footer from './components/Footer'
-
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 export default {
   name: 'App',
@@ -26,26 +23,26 @@ export default {
     Header,
     Footer,
   },
-  data () {
+  data() {
     return {
       showAddTask: false,
-    }
+    };
   },
   methods: {
     toggleAddTask() {
-      this.showAddTask = !this.showAddTask
+      this.showAddTask = !this.showAddTask;
     },
   },
   computed: {
     showFooter() {
       if (this.$route.path === '/') {
-        return true
+        return true;
       } else {
-        return false
+        return false;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
