@@ -1,16 +1,11 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "text": "Write Code",
-      "day": "March 1st at 2:30pm",
-      "reminder": false
-    },
-    {
       "id": 3,
       "text": "Study Vue",
       "day": "March 1st at 5:30pm",
-      "reminder": false
+      "reminder": true,
+      "{\"id\":3,\"text\":\"Study Vue\",\"day\":\"March 1st at 5:30pm\",\"reminder\":true}": ""
     },
     {
       "id": 4,
@@ -41,6 +36,24 @@
       "day": "2022-12-09",
       "reminder": true,
       "id": 10
+    },
+    {
+      "text": "Lookup State management in Vue using VueX",
+      "day": "2022-12-13",
+      "reminder": true,
+      "id": 11
+    },
+    {
+      "text": "Take a walk",
+      "day": "2022-12-16",
+      "reminder": true,
+      "id": 12
+    },
+    {
+      "text": "Hookup Axios",
+      "day": "2022-12-16",
+      "reminder": true,
+      "id": 13
     }
   ]
 }
