@@ -1,5 +1,5 @@
 <template>
-  <div :key="task._id" v-for="task in tasks">
+  <div :key="task.id" v-for="task in tasks">
     <!-- json-server uses generates a id key to identify the tasks whereas
     mongodb uses _id toggle-reminder  and delete-task emits are written
     as they are below to accomodate both -->
@@ -10,7 +10,6 @@
     />
   </div>
 </template>
-ß
 
 <script>
 import Task from './Task';

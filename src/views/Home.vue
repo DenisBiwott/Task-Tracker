@@ -4,7 +4,7 @@
   <Tasks
     @toggle-reminder="toggleReminder"
     @delete-task="deleteTask"
-    :tasks="tasks"
+    :tasks="allTasks"
   />
 </template>
 
@@ -13,6 +13,7 @@
 import axios from 'axios';
 import Tasks from '../components/Tasks';
 import AddTask from '../components/AddTask';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Home',
@@ -22,11 +23,6 @@ export default {
   components: {
     Tasks,
     AddTask,
-  },
-  data() {
-    return {
-      tasks: [],
-    };
   },
   methods: {
     async addTask(task) {
@@ -65,26 +61,21 @@ export default {
 
       const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
 
-      const res = await axios(`api/tasks/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        data: JSON.stringify(updTask),
-      });
-      const data = res.data;
+      // const res = await axios(`api/tasks/${id}`, {
+      //   method: 'PATCH',
+      //   headers: {
+      //     'Content-type': 'application/json',
+      //   },
+      //   data: JSON.stringify(updTask),
+      // });
+      // const data = res.data;
 
-      this.tasks = this.tasks.map((task) =>
-        task._id === id ? { ...task, reminder: data.reminder } : task
-      );
-    },
-    async fetchTasks() {
-      const res = await axios({
-        method: 'GET',
-        url: `/api/tasks`,
-      });
-      const data = res.data;
-      return data;
+      // console.log(this.$store.state.tasks);
+      // // TODO: Update tasks in the store
+      // this.tasks = this.tasks.map((task) =>
+      //   task._id === id ? { ...task, reminder: data.reminder } : task
+      // );
+      this.$store.dispatch('toggleReminder', updTask);
     },
     async fetchTask(id) {
       const res = await axios({
@@ -94,6 +85,10 @@ export default {
       const data = res.data;
       return data;
     },
+    ...mapActions(['fetchTasks']),
+  },
+  computed: {
+    ...mapGetters(['allTasks']),
   },
   // SampleData Here Will come from a Backend Eventually (Currently using json-server
   // https://www.npmjs.com/package/json-server)
@@ -104,7 +99,7 @@ export default {
   // https://puce-kingfisher-tutu.cyclic.app/
 
   async created() {
-    this.tasks = await this.fetchTasks();
+    this.fetchTasks();
   },
 };
 </script>
